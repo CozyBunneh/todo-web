@@ -1,1 +1,254 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --rosewater: rgb(245, 224, 220);
+  --flamingo: rgb(242, 205, 205);
+  --pink: rgb(245, 194, 231);
+  --mauve: rgb(203, 166, 247);
+  --red: rgb(243, 139, 168);
+  --maroon: rgb(235, 160, 172);
+  --peach: rgb(250, 179, 135);
+  --yellow: rgb(249, 226, 175);
+  --green: rgb(166, 227, 161);
+  --teal: rgb(148, 226, 213);
+  --sky: rgb(137, 220, 235);
+  --sapphire: rgb(116, 199, 236);
+  --blue: rgb(137, 180, 250);
+  --lavender: rgb(180, 190, 254);
+  --text: rgb(205, 214, 244);
+  --subtext1: rgb(186, 194, 222);
+  --subtext0: rgb(166, 173, 200);
+  --overlay2: rgb(147, 153, 178);
+  --overlay1: rgb(127, 132, 156);
+  --overlay0: rgb(108, 112, 134);
+  --surface2: rgb(88, 91, 112);
+  --surface1: rgb(69, 71, 90);
+  --surface0: rgb(49, 50, 68);
+  --base: rgb(30, 30, 46);
+  --mantle: rgb(24, 24, 37);
+  --crust: rgb(17, 17, 27);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  background-color: var(--base);
+  color: var(--text);
+}
+
+a {
+  color: var(--sapphire);
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--primary-color);
+  }
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px; /* Adding rounded corners */
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: var(--base);
+  color: var(--text);
+
+  &.save {
+    color: var(--green);
+    &.filled {
+      background-color: var(--green);
+      color: var(--base);
+      &:hover {
+        background-color: var(--teal);
+      }
+    }
+
+    &.outlined {
+      padding: 8px 18px;
+      border: 2px var(--green) solid;
+      &:hover {
+        color: var(--teal);
+        border: 2px var(--teal) solid;
+      }
+    }
+  }
+
+  &.info {
+    color: var(--sky);
+    &.filled {
+      background-color: var(--sky);
+      color: var(--base);
+      &:hover {
+        background-color: var(--sapphire);
+      }
+    }
+
+    &.outlined {
+      padding: 8px 18px;
+      border: 2px var(--sky) solid;
+      &:hover {
+        color: var(--sapphire);
+        border: 2px var(--sapphire) solid;
+      }
+    }
+  }
+
+  &.warning {
+    color: var(--yellow);
+    &.filled {
+      background-color: var(--yellow);
+      color: var(--base);
+      &:hover {
+        background-color: var(--peach);
+      }
+    }
+
+    &.outlined {
+      padding: 8px 18px;
+      color: var(--yellow);
+      border: 2px var(--yellow) solid;
+      &:hover {
+        color: var(--peach);
+        border: 2px var(--peach) solid;
+      }
+    }
+  }
+
+  &.delete {
+    color: var(--maroon);
+    &.filled {
+      background-color: var(--maroon);
+      color: var(--base);
+      &:hover {
+        background-color: var(--red);
+      }
+    }
+
+    &.outlined {
+      padding: 8px 18px;
+      border: 2px var(--maroon) solid;
+      &:hover {
+        color: var(--red);
+        border: 2px var(--red) solid;
+      }
+    }
+  }
+
+  &:disabled {
+    background-color: var(--overlay0);
+  }
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 2px 2px;
+  border: 2px var(--mauve) solid;
+  background: none;
+  border-radius: 20px;
+}
+
+.table thead:first-child tr:first-child th:first-child, tbody:first-child tr:first-child td:first-child {
+    border-radius: 20px 0 0 0;
+}
+.table thead:first-child tr:first-child th:last-child {
+    border-radius: 0 20px 0 0;
+}
+.table thead:last-child tr:last-child th:first-child, tbody:last-child tr:last-child td:first-child {
+    border-radius: 0 0 0 20px;
+}
+.table thead:last-child tr:last-child th:first-child, tbody:last-child tr:last-child td:last-child {
+    border-radius: 0 0 20px 0;
+}
+
+.table thead {
+    display: table-header-group;
+    &th {
+      border-bottom: 1px var(--mauve) solid;
+    }
+}
+
+.table th,
+.table td {
+  padding: 10px 15px;
+  text-align: left;
+}
+
+.table th {
+  background-color: var(--crust);
+  font-weight: bold;
+}
+
+.table tr:nth-child(even) {
+  background-color: var(--mantle);
+}
+
+.table tr:hover {
+  background-color: var(--surface2);
+}
+
+@mixin margin($size) {
+  margin: $size * 0.25rem;
+}
+
+@mixin padding($size) {
+  padding: $size * 0.25rem;
+}
+
+$spacing-levels: 0, 1, 2, 3, 4, 5;
+
+@each $level in $spacing-levels {
+  .m-#{$level} {
+    @include margin($level);
+  }
+
+  .p-#{$level} {
+    @include padding($level);
+  }
+}
+
+@mixin margin($direction, $size) {
+  margin-#{$direction}: $size * 0.25rem;
+}
+
+@mixin padding($direction, $size) {
+  padding-#{$direction}: $size * 0.25rem;
+}
+
+$directions: top, right, bottom, left;
+
+@each $level in $spacing-levels {
+  @each $direction in $directions {
+    .m-#{$direction}-#{$level} {
+      @include margin($direction, $level);
+    }
+
+    .p-#{$direction}-#{$level} {
+      @include padding($direction, $level);
+    }
+  }
+}
+
+.select {
+  min-width: 4rem;
+  max-width: 10rem;
+  border: 2px solid var(--mauve);
+  border-radius: 20px;
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: var(--base);
+  color: var(--text);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 50%;
+}
