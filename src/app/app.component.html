@@ -57,55 +57,11 @@
       </tr>
     </tbody>
   </table>
-  <div style="display: flex; flex-direction: row; justify-content: end">
-    <select
-      class="select m-right-2"
-      [(ngModel)]="selectedHits"
-      (ngModelChange)="selectedHitsChanged($event)"
-    >
-      <option *ngFor="let numHits of hitsRange">{{numHits}}</option>
-    </select>
-    <button class="button info outlined m-right-1" (click)="gotoFirstPage()">
-      <-
-    </button>
-    <button class="button info outlined m-right-1" (click)="gotoPreviousPage()">
-      <
-    </button>
-    <div
-      *ngIf="showFirst"
-      style="display: flex; flex-direction: row; align-items: center"
-    >
-      <button class="button m-right-1" (click)="gotoFirstPage()">0</button>
-      <p style="margin: 0">...</p>
-    </div>
-    <div *ngFor="let index of paginationRange">
-      <button
-        class="button m-right-1"
-        [class.save]="isIndexCurrentPage(index)"
-        (click)="gotoPage(index)"
-      >
-        {{index}}
-      </button>
-    </div>
-    <div
-      *ngIf="showLast"
-      style="display: flex; flex-direction: row; align-items: center"
-    >
-      <p
-        *ngIf="pagination.currentPage < pagination.lastPage - 2"
-        style="margin: 0"
-      >
-        ...
-      </p>
-      <button class="button m-right-1" (click)="gotoLastPage()">
-        {{ pagination.lastPage }}
-      </button>
-    </div>
-    <button class="button info outlined m-right-1" (click)="gotoNextPage()">
-      >
-    </button>
-    <button class="button info outlined" (click)="gotoLastPage()">-></button>
-  </div>
+  <app-pagination
+    [pagination]="pagination"
+    (changePage)="gotoPage($event)"
+    (selectedHitsChanged)="onSelectedHitsChanged($event)"
+  ></app-pagination>
 </div>
 
 <ng-template #createDialog>

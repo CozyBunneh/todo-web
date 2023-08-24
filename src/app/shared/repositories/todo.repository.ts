@@ -63,13 +63,18 @@ export class TodoRepository {
     );
   }
 
-  changePage(pageIndex: number, pageSize: number) {
+  changePage(
+    pageIndex: number,
+    pageSize: number,
+    query?: string,
+    filterCompleted?: boolean,
+  ) {
     if (store.query(hasPage(pageIndex))) {
       store.update(setCurrentPage(pageIndex));
       return;
     }
 
-    this.loadPage(pageIndex, pageSize);
+    this.loadPage(pageIndex, pageSize, query, filterCompleted);
   }
 
   clearCache() {
@@ -80,11 +85,16 @@ export class TodoRepository {
     store.update(deleteEntities(id));
   }
 
-  loadPage(pageIndex: number, pageSize: number) {
+  loadPage(
+    pageIndex: number,
+    pageSize: number,
+    query?: string,
+    filterCompleted?: boolean,
+  ) {
     const { lastPage, total } = store.query(getPaginationData());
 
     this.todoService
-      .getPaged(pageIndex, pageSize)
+      .getPaged(pageIndex, pageSize, query, filterCompleted)
       .subscribe((paginatedData) => {
         store.update(
           addEntities(paginatedData?.data?.map((t) => t as Todo) ?? []),

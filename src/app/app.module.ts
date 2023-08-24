@@ -6,6 +6,7 @@ import { AppComponent } from "./app.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { ApiModule, Configuration } from "./core/api/todo";
+import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { ApiModule, Configuration } from "./core/api/todo";
         basePath: `http://localhost:8080`,
       });
     }),
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
