@@ -14,23 +14,8 @@ import {
   styleUrls: ["./dialog.component.scss"],
 })
 export class DialogComponent {
-  // implements OnInit, OnChanges {
   @Input() isOpen = false;
   @Output() isOpenChange = new EventEmitter<boolean>();
-
-  // ngOnInit(): void {
-  //   // this.isOpen = false;
-  // }
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   if (
-  //     changes["isOpen"] &&
-  //     !changes["isOpen"].isFirstChange &&
-  //     changes["isOpen"].currentValue !== changes["isOpen"].previousValue
-  //   ) {
-  //     this.isOpen = changes["isOpen"].currentValue;
-  //   }
-  // }
 
   closeDialog() {
     this.isOpen = false;

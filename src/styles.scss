@@ -47,6 +47,52 @@ a {
   }
 }
 
+input {
+  padding: 10px 20px;
+  border: 2px var(--green) solid;
+  border-radius: 20px; /* Adding rounded corners */
+  font-size: 16px;
+  background-color: var(--base);
+  color: var(--text);
+
+  &:focus {
+    border: 2px var(--teal) solid;
+    outline: none;
+  }
+
+  &.save {
+    border: 2px var(--green) solid;
+
+    &:focus {
+      border: 2px var(--teal) solid;
+    }
+  }
+
+  &.info {
+    border: 2px var(--sky) solid;
+
+    &:focus {
+      border: 2px var(--sapphire) solid;
+    }
+  }
+
+  &.warning{
+    border: 2px var(--yellow) solid;
+
+    &:focus {
+      border: 2px var(--peach) solid;
+    }
+  }
+
+  &.delete{
+    border: 2px var(--maroon) solid;
+
+    &:focus {
+      border: 2px var(--red) solid;
+    }
+  }
+}
+
 .button {
   display: inline-block;
   padding: 10px 20px;

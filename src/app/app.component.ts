@@ -21,6 +21,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   todos!: Todo[];
   isAdding: boolean = false;
   todoForm!: FormGroup;
+  searchQuery: string | undefined = undefined;
+  filterCompleted: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,24 +52,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       ],
       completed: [false, Validators.required],
     });
-    // this.todoForm = this.formBuilder.group({
-    //   title: ["", { updateOn: "submit", validators: Validators.required }],
-    //   priority: [
-    //     3,
-    //     {
-    //       updateOn: "submit",
-    //       validators: [
-    //         Validators.required,
-    //         Validators.min(1),
-    //         Validators.max(5),
-    //       ],
-    //     },
-    //   ],
-    //   completed: [
-    //     false,
-    //     { updateOn: "submit", validators: Validators.required },
-    //   ],
-    // });
+  }
+
+  onFilterCompletedChanged(_event: Event) {
+    this.gotoPage(0);
   }
 
   openDialog() {
@@ -119,11 +107,18 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.todoRepository.changePage(
         this.pagination.currentPage,
         this.selectedHits,
+        this.searchQuery,
+        this.filterCompleted,
       );
     }
   }
 
   gotoPage(pageIndex: number) {
-    this.todoRepository.changePage(pageIndex, this.selectedHits);
+    this.todoRepository.changePage(
+      pageIndex,
+      this.selectedHits,
+      this.searchQuery,
+      this.filterCompleted,
+    );
   }
 }
