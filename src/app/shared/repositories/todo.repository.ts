@@ -4,6 +4,7 @@ import {
   addEntities,
   deleteAllEntities,
   deleteEntities,
+  selectEntity,
   setEntities,
   withEntities,
 } from "@ngneat/elf-entities";
@@ -21,7 +22,7 @@ import {
 } from "@ngneat/elf-pagination";
 import { combineLatest, debounceTime, map } from "rxjs";
 import { TodoService } from "../services/todo.service";
-import { TodoV1 } from "src/app/core/api/todo";
+import { CreateTodoV1, TodoV1 } from "src/app/core/api/todo";
 
 export interface Todo extends TodoV1 {
   id: number;
@@ -47,9 +48,9 @@ export class TodoRepository {
     this.loadPage(0, 5);
   }
 
-  setTodos(todos: TodoV1[]) {
-    store.update(setEntities(todos.map((t) => t as Todo)));
-  }
+  // setTodos(todos: TodoV1[]) {
+  //   store.update(setEntities(todos.map((t) => t as Todo)));
+  // }
 
   addTodos(response: PaginationData & { data: TodoV1[] }) {
     const { data, ...paginationData } = response;
@@ -110,5 +111,37 @@ export class TodoRepository {
           ),
         );
       });
+  }
+
+  reloadPage() {
+    const paginationData = store.query(getPaginationData());
+    this.clearCache();
+    this.loadPage(0, paginationData.perPage);
+  }
+
+  create(todo: CreateTodoV1): void {
+    this.todoService.create(todo).subscribe(() => {
+      this.reloadPage();
+    });
+  }
+
+  update(todo: TodoV1): void {
+    this.todoService.update(todo).subscribe(() => {});
+  }
+
+  delete(id: number): void {
+    this.todoService.delete(id).subscribe(() => {
+      this.reloadPage();
+    });
+  }
+
+  toggleTodo(id: number, completed: boolean) {
+    store.pipe(selectCurrentPageEntities()).subscribe((todos: Todo[]) => {
+      let todo = todos.find((todo) => todo.id === id);
+      if (todo) {
+        todo.completed = completed;
+        this.update(todo);
+      }
+    });
   }
 }

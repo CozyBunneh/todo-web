@@ -1,0 +1,17 @@
+<dialog
+  *ngIf="isOpen"
+  open
+  style="
+    border-radius: 20px;
+    background-color: var(--base);
+    border-color: var(--teal);
+    color: var(--text);
+  "
+>
+  <div style="display: flex; flex-direction: column">
+    <div style="display: flex; flex-direction: row-reverse" class="m-bottom-2">
+      <button class="button delete outlined" (click)="closeDialog()">x</button>
+    </div>
+    <ng-content></ng-content>
+  </div>
+</dialog>
