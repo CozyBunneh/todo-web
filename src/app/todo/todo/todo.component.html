@@ -1,0 +1,24 @@
+<div *ngIf="todo$ |async as props; else noData">
+  <div *ngIf="props.todo !== null; else loading">
+    <div style="display: flex; align-content: center">
+      <label> Id: <span>{{ props.todo.id }}</span></label>
+    </div>
+    <div style="display: flex; align-content: center">
+      <label> Title: <span>{{ props.todo.title }}</span></label>
+    </div>
+    <div style="display: flex; align-content: center">
+      <label> Completed: <span>{{ props.todo.completed }}</span></label>
+    </div>
+    <div style="display: flex; align-content: center">
+      <label> Priority: <span>{{ props.todo.priority!.name }}</span></label>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p>Loading todo...</p>
+</ng-template>
+
+<ng-template #noData>
+  <p>No todo found with selected id.</p>
+</ng-template>

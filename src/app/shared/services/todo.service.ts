@@ -1,22 +1,17 @@
 import { Injectable } from "@angular/core";
-import { trackRequestResult } from "@ngneat/elf-requests";
-import { of, tap } from "rxjs";
-import { TodoRepository } from "../repositories/todo.repository";
+import { of } from "rxjs";
 import {
   CreateTodoV1,
   PriorityV1,
   TodoResourceService,
   TodoV1,
 } from "src/app/core/api/todo";
-import { PaginationData, skipWhilePageExists } from "@ngneat/elf-pagination";
 
 @Injectable({
   providedIn: "root",
 })
 export class TodoService {
-  constructor(
-    private todoApiService: TodoResourceService, // private todoRepository: TodoRepository,
-  ) {}
+  constructor(private todoApiService: TodoResourceService) {}
 
   getPaged(
     pageIndex: number,
@@ -25,6 +20,10 @@ export class TodoService {
     completed?: boolean,
   ) {
     return this.todoApiService.todosGet(completed, pageIndex, pageSize, query);
+  }
+
+  getById(id: number) {
+    return this.todoApiService.todosIdGet(id);
   }
 
   create(todo: CreateTodoV1) {
