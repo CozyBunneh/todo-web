@@ -1,0 +1,8 @@
+<div style="display: flex; align-items: center">
+  <span class="m-right-2">{{ label }}</span>
+  <div
+    class="checkbox info m-right-3"
+    [class.checkbox-checked]="value === true"
+    (click)="toggle()"
+  ></div>
+</div>

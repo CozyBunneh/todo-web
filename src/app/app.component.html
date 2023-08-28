@@ -24,16 +24,15 @@
       align-items: center;
     "
   >
-    <label for="filterCompleted">Filter completed: </label>
-    <input
-      class="m-right-3"
-      type="checkbox"
-      id="filterCompleted"
-      name="filterCompleted"
-      [(ngModel)]="filterCompleted"
-      (ngModelChange)="onFilterCompletedChanged($event)"
-    />
-    <input class="m-right-3" type="text" [(ngModel)]="searchQuery" />
+    <app-checkbox
+      [(value)]="filterCompletedValue"
+      [label]="'Filter completed:'"
+      (onChanged)="onFilterChanged()"
+    ></app-checkbox>
+    <input class="m-right-3 info" type="text" [(ngModel)]="searchQuery" />
+    <button class="button info outlined m-right-3" (click)="onFilterChanged()">
+      Search
+    </button>
     <button class="button save filled" (click)="openDialog()">Add +</button>
   </div>
   <ng-component *ngTemplateOutlet="createDialog"></ng-component>

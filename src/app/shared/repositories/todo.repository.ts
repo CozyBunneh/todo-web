@@ -43,14 +43,12 @@ export class TodoRepository {
     map(([pagination, data]) => ({ ...pagination, data })),
     debounceTime(0),
   );
+  private query: string | undefined = undefined;
+  private filterCompleted: true | undefined = undefined;
 
   constructor(private todoService: TodoService) {
     this.loadPage(0, 5);
   }
-
-  // setTodos(todos: TodoV1[]) {
-  //   store.update(setEntities(todos.map((t) => t as Todo)));
-  // }
 
   addTodos(response: PaginationData & { data: TodoV1[] }) {
     const { data, ...paginationData } = response;
@@ -93,6 +91,10 @@ export class TodoRepository {
     filterCompleted?: boolean,
   ) {
     const { lastPage, total } = store.query(getPaginationData());
+
+    query = query === undefined ? this.query : query;
+    filterCompleted =
+      filterCompleted === undefined ? this.filterCompleted : filterCompleted;
 
     this.todoService
       .getPaged(pageIndex, pageSize, query, filterCompleted)
@@ -143,5 +145,18 @@ export class TodoRepository {
         this.update(todo);
       }
     });
+  }
+
+  filter(query?: string, filterCompleted?: true) {
+    this.query = query;
+    this.filterCompleted = filterCompleted;
+    const paginationData = store.query(getPaginationData());
+    this.clearCache();
+    this.loadPage(0, paginationData.perPage, undefined, filterCompleted);
+  }
+
+  clearFilters() {
+    this.query = undefined;
+    this.filterCompleted = undefined;
   }
 }

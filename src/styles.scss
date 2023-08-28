@@ -298,3 +298,45 @@ $directions: top, right, bottom, left;
   background-position-x: 95%;
   background-position-y: 50%;
 }
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: 2px var(--green) solid;
+  background-color: var(--base);
+  cursor: pointer;
+
+  &.info {
+    border: 2px var(--sky) solid;
+  }
+
+  &.warning {
+    border: 2px var(--yellow) solid;
+  }
+
+  &.error {
+    border: 2px var(--maroon) solid;
+  }
+}
+
+.checkbox-checked {
+  background-color: var(--green);
+
+  &.info {
+    background-color: var(--sky);
+  }
+
+  &.warning {
+    background-color: var(--yellow);
+  }
+
+  &.error {
+    background-color: var(--maroon);
+  }
+}

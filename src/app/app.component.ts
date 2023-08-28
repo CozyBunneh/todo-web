@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   isAdding: boolean = false;
   todoForm!: FormGroup;
   searchQuery: string | undefined = undefined;
-  filterCompleted: boolean = false;
+  filterCompletedValue: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,8 +54,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onFilterCompletedChanged(_event: Event) {
-    this.gotoPage(0);
+  get filterCompleted(): true | undefined {
+    return this.filterCompletedValue === true ? true : undefined;
+  }
+
+  onFilterChanged() {
+    this.todoRepository.filter(this.searchQuery, this.filterCompleted);
   }
 
   openDialog() {
