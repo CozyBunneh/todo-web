@@ -23,7 +23,6 @@ export class TodoRepository {
   constructor(private todoService: TodoService) {}
 
   update(todo: Todo) {
-    // store.update(setProp("todo", todo));
     store.update((state) => ({
       ...state,
       todo: todo,
@@ -34,5 +33,12 @@ export class TodoRepository {
     this.todoService.getById(id).subscribe((todo: TodoV1) => {
       this.update(todo as Todo);
     });
+  }
+
+  clear() {
+    store.update((state) => ({
+      ...state,
+      todo: null,
+    }));
   }
 }

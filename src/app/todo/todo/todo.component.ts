@@ -1,18 +1,6 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AfterViewInit, Component, HostListener } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { PaginationData } from "@ngneat/elf-pagination";
-import { CreateTodoV1 } from "src/app/core/api/todo";
-import {
-  Todo,
-  TodoRepository,
-} from "src/app/shared/repositories/todo.repository";
-import { TodoService } from "src/app/shared/services/todo.service";
+import { TodoRepository } from "src/app/shared/repositories/todo.repository";
 
 @Component({
   selector: "app-todo",
@@ -37,5 +25,10 @@ export class TodoComponent implements AfterViewInit {
         this.todoRepository.get(this.id);
       }
     });
+  }
+
+  @HostListener("window:popstate", ["$event"])
+  onPopState(_event: Event) {
+    this.todoRepository.clear();
   }
 }
