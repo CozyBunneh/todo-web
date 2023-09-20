@@ -60,5 +60,5 @@ aio/content/examples/.DS_Store
 
 .angular
 
-src/app/core/api
+# src/app/core/api
 
